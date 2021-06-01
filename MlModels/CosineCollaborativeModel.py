@@ -1,5 +1,4 @@
 import pandas as pd
-from scipy import sparse
 from sklearn.metrics.pairwise import cosine_similarity
 
 
@@ -15,7 +14,7 @@ def get_similar_events(event_name, user_rating):
 
 
 if __name__ == '__main__':
-    ratings = pd.read_csv('Ratings1.csv', index_col=0)
+    ratings = pd.read_csv('../Ratings/RatingsForCosine.csv', index_col=0)
     ratings = ratings.fillna(0)
     ratings_std = ratings.apply(standardize)
     item_similarity = cosine_similarity(ratings_std.T)
