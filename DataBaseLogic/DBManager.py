@@ -24,8 +24,4 @@ class DataBaseConnection:
         except():
             raise TypeError("data base connection error")
 
-    # reco_collection = data_base.recomendation
-    # record = {
-    #     "hgello": "akjdflka"
-    # }
-    # reco_collection.insert_one(record)
+
