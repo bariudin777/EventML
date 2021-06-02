@@ -1,9 +1,10 @@
-import DBManager
 import pandas as pd
 import json
 
-class EventRecommendationSchema:
+from DataBaseLogic import DBManager
 
+
+class EventRecommendationSchema:
 
     def createSchemaManager(self):
         connection = DBManager.DataBaseConnection()  # create an database connection class
@@ -22,17 +23,8 @@ class EventRecommendationSchema:
     def getData(self):
         df = pd.read_csv("../Ratings/recommendatin_ratings.csv")
         payload = json.loads(df.to_json(orient='records'))
-        print(payload)
-        return payload
+        return df, payload
 
-
-
-        # record = {
-        #     "hgello": "akjdflka"
-        # }
-        # return record
-
-
-if __name__ == '__main__':
-    event = EventRecommendationSchema()
-    event.insertMartrix()
+# if __name__ == '__main__':
+#     event = EventRecommendationSchema()
+#     event.insertMartrix()

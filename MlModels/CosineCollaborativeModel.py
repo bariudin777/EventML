@@ -19,5 +19,3 @@ if __name__ == '__main__':
     ratings_std = ratings.apply(standardize)
     item_similarity = cosine_similarity(ratings_std.T)
     item_similarity_df = pd.DataFrame(item_similarity, index=ratings.columns, columns=ratings.columns)
-
-    print(get_similar_events("e1", 1))
