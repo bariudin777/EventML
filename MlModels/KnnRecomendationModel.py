@@ -1,25 +1,14 @@
-import pandas as pd
 from sklearn.neighbors import NearestNeighbors
-
 from DataBaseLogic.EventRecommendationController import EventRecommendationSchema
 
 
 class KnnModel:
     '''Knn Model'''
 
-    def __init__(self):
-        s = EventRecommendationSchema()
-        self.n_neighbors = 3
-        # self.df, self.payload = s.getData()
-        self.df = df = pd.DataFrame({'user_0': [0, 3, 0, 5, 0, 0, 4, 5, 0, 2], 'user_1': [0, 0, 3, 2, 5, 0, 4, 0, 3, 0],
-                                     'user_2': [3, 1, 0, 3, 5, 0, 0, 4, 0, 0], 'user_3': [4, 3, 4, 2, 0, 0, 0, 2, 0, 0],
-                                     'user_4': [2, 0, 0, 0, 0, 4, 4, 3, 5, 0], 'user_5': [1, 0, 2, 4, 0, 0, 4, 0, 5, 0],
-                                     'user_6': [2, 0, 0, 3, 0, 4, 3, 3, 0, 0], 'user_7': [0, 0, 0, 3, 0, 2, 4, 3, 4, 0],
-                                     'user_8': [5, 0, 0, 0, 5, 3, 0, 3, 0, 4],
-                                     'user_9': [1, 0, 2, 0, 4, 0, 4, 3, 0, 0]},
-                                    index=['movie_0', 'movie_1', 'movie_2', 'movie_3', 'movie_4', 'movie_5', 'movie_6',
-                                           'movie_7', 'movie_8', 'movie_9'])
-
+    def __init__(self, controller, number_of_neighbors):
+        self.controller = controller
+        self.n_neighbors = number_of_neighbors
+        self.df, self.payload = self.controller.getData()
         self.df_copy = self.df.copy()
 
     def model(self, user, number_recommendations):
@@ -98,8 +87,3 @@ class KnnModel:
         for recommended_event in sorted_rm[:number_recommendations]:
             print('{}: {} - predicted rating:{}'.format(rank, recommended_event[0], recommended_event[1]))
             rank = rank + 1
-
-
-if __name__ == '__main__':
-    model = KnnModel()
-    model.model("user_4", 3)

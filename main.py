@@ -1,12 +1,12 @@
-from DataBaseLogic.DBManager import DataBaseConnection
 from DataBaseLogic.EventRecommendationController import EventRecommendationSchema
+from MlModels.KnnRecomendationModel import KnnModel
 
-class Main:
-
-    def __init__(self):
-        self.db_manager = DataBaseConnection().createDataBaseClient()
-
+FIRST_INIT = True
 
 if __name__ == '__main__':
-    main = Main()
-
+    controller = EventRecommendationSchema()
+    if FIRST_INIT:
+        controller.insertMartrix()
+    number_of_neighbors = 3
+    knn_model = KnnModel(controller, number_of_neighbors)
+    knn_model.model("user_3", 3)

@@ -1,8 +1,16 @@
 import pandas as pd
 import json
+from DataBaseLogic.DBManager import DataBaseConnection
 
 
 class EventRecommendationSchema:
+    def __init__(self):
+        self.db_manager = DataBaseConnection().createDataBaseClient() # create db client
+
+    def insertMartrix(self):
+        '''insert matrix to data base'''
+        data = self.getData()
+        self.createRecommendationMatrix(data, self.db_manager)
 
     def createRecommendationMatrix(self, data, dbManager):
         '''uses the data manager to insert recommendation matrix to data base'''
@@ -15,7 +23,4 @@ class EventRecommendationSchema:
         payload = json.loads(df.to_json(orient='records'))
         return df, payload
 
-    def insertMartrix(self, dbManager):
-        '''insert matrix to data base'''
-        data = self.getData()
-        self.createRecommendationMatrix(data, dbManager)
+
