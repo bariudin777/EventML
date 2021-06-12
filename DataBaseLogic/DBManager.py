@@ -1,6 +1,9 @@
 import pymongo
-from pymongo import MongoClient
-
+'''
+Data Base Manager
+1. Create connections to data base
+2. Create data base client
+'''
 
 class DataBaseConnection:
 
@@ -8,7 +11,7 @@ class DataBaseConnection:
         self.port = "27017"
         self.ip = "127.0.0.1"
 
-    def establishconnection(self):
+    def establishConnection(self):
         try:
             address = "mongodb://" + self.ip + ":" + self.port + "/"
             client = pymongo.MongoClient(address)
@@ -18,7 +21,7 @@ class DataBaseConnection:
 
     def createDataBaseClient(self):
         try:
-            client = self.establishconnection()
+            client = self.establishConnection()
             data_base = client['MEANStackDB']
             return data_base
         except():

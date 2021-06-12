@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
 
-from DataBaseLogic.EventRecomendatinSchema import EventRecommendationSchema
+from DataBaseLogic.EventRecommendationController import EventRecommendationSchema
 
 
 class KnnModel:
@@ -10,7 +10,16 @@ class KnnModel:
     def __init__(self):
         s = EventRecommendationSchema()
         self.n_neighbors = 3
-        self.df, self.payload = s.getData()
+        # self.df, self.payload = s.getData()
+        self.df = df = pd.DataFrame({'user_0': [0, 3, 0, 5, 0, 0, 4, 5, 0, 2], 'user_1': [0, 0, 3, 2, 5, 0, 4, 0, 3, 0],
+                                     'user_2': [3, 1, 0, 3, 5, 0, 0, 4, 0, 0], 'user_3': [4, 3, 4, 2, 0, 0, 0, 2, 0, 0],
+                                     'user_4': [2, 0, 0, 0, 0, 4, 4, 3, 5, 0], 'user_5': [1, 0, 2, 4, 0, 0, 4, 0, 5, 0],
+                                     'user_6': [2, 0, 0, 3, 0, 4, 3, 3, 0, 0], 'user_7': [0, 0, 0, 3, 0, 2, 4, 3, 4, 0],
+                                     'user_8': [5, 0, 0, 0, 5, 3, 0, 3, 0, 4],
+                                     'user_9': [1, 0, 2, 0, 4, 0, 4, 3, 0, 0]},
+                                    index=['movie_0', 'movie_1', 'movie_2', 'movie_3', 'movie_4', 'movie_5', 'movie_6',
+                                           'movie_7', 'movie_8', 'movie_9'])
+
         self.df_copy = self.df.copy()
 
     def model(self, user, number_recommendations):
@@ -53,9 +62,7 @@ class KnnModel:
                     prediction = 0
                 # place the prediction
                 self.df_copy.iloc[row, user_index] = prediction
-        self.recomend_event(user,number_recommendations)
-
-
+        self.recomend_event(user, number_recommendations)
 
     ''' Remove the first event distence- clear data'''
 
@@ -95,4 +102,4 @@ class KnnModel:
 
 if __name__ == '__main__':
     model = KnnModel()
-    model.model(1,5)
+    model.model("user_4", 3)
